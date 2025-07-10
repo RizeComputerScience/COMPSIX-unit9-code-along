@@ -2,14 +2,14 @@ const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config();
 
 // Create Sequelize instance
-const sequelize = new Sequelize({
+const db = new Sequelize({
     dialect: 'sqlite',
     storage: `database/${process.env.DB_NAME}` || 'database/library_system.db',
     logging: console.log
 });
 
 // Define Book model
-const Book = sequelize.define('Book', {
+const Book = db.define('Book', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -40,18 +40,18 @@ const Book = sequelize.define('Book', {
 });
 
 // Export for use in other files
-module.exports = { sequelize, Book };
+module.exports = { db, Book };
 
 // Create database and tables
 async function setupDatabase() {
     try {
-        await sequelize.authenticate();
+        await db.authenticate();
         console.log('Connection to database established successfully.');
         
-        await sequelize.sync({ force: true });
+        await db.sync({ force: true });
         console.log('Database and tables created successfully.');
         
-        await sequelize.close();
+        await db.close();
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
