@@ -38,7 +38,7 @@ app.get('/api/books/:id', async (req, res) => {
         const book = await Book.findByPk(req.params.id);
         
         if (!book) {
-        return res.status(404).json({ error: 'Book not found' });
+            return res.status(404).json({ error: 'Book not found' });
         }
         
         res.json(book);
@@ -54,12 +54,12 @@ app.post('/api/books', async (req, res) => {
         const { title, author, isbn, genre, publishedYear, available } = req.body;
         
         const newBook = await Book.create({
-        title,
-        author,
-        isbn,
-        genre,
-        publishedYear,
-        available
+            title,
+            author,
+            isbn,
+            genre,
+            publishedYear,
+            available
         });
         
         res.status(201).json(newBook);
@@ -80,7 +80,7 @@ app.put('/api/books/:id', async (req, res) => {
         );
         
         if (updatedRowsCount === 0) {
-        return res.status(404).json({ error: 'Book not found' });
+            return res.status(404).json({ error: 'Book not found' });
         }
         
         const updatedBook = await Book.findByPk(req.params.id);
@@ -99,7 +99,7 @@ app.delete('/api/books/:id', async (req, res) => {
         });
         
         if (deletedRowsCount === 0) {
-        return res.status(404).json({ error: 'Book not found' });
+            return res.status(404).json({ error: 'Book not found' });
         }
         
         res.json({ message: 'Book deleted successfully' });
