@@ -1,4 +1,4 @@
-const { sequelize, Book } = require('./setup');
+const { db, Book } = require('./setup');
 
 // Sample book data
 const sampleBooks = [
@@ -136,7 +136,7 @@ const sampleCheckouts = [
 // Seed database with sample data
 async function seedDatabase() {
     try {
-        await sequelize.authenticate();
+        await db.authenticate();
         console.log('Connected to database for seeding.');
         
         // Try to seed users if User model exists
@@ -162,9 +162,8 @@ async function seedDatabase() {
         } catch (error) {
             console.log('Checkout model not found - skipping user seeding');
         }
-        
-        
-        await sequelize.close();
+                
+        await db.close();
         console.log('Database seeding completed.');
     } catch (error) {
         console.error('Error seeding database:', error);
